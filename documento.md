@@ -44,6 +44,12 @@ autenticación de los puntos finales.
 
 # SPDY
 
+## Server Push 
+
+Server Push es una técnica que permite al servidor enviar múltiples respuestas a una única petición del cliente. Esto se basa en que a veces, el servidor sabe que tiene que mandar múltiples recursos como respuesta a una petición del cliente. Sin *server push*, el cliente debe primero obtener el recurso principal, y al ver que necesita recursos secundarios, solicitarlos con nuevas peticiones. Todas estas peticiones innecesarias se evitan permitiendo al servidor enviar los recursos secundarios relacionados con el principal, sin esperar a que el cliente los pida. 
+
+Si bien esto reduce el tiempo de obtención de recursos, también crea un posible conflicto en el caso en el que el servidor envía recursos mientras el cliente está en proceso de solicitarlos. Se puede resolver con:  
+
 # Test bloque de código
 
 ~~~sh
