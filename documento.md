@@ -11,6 +11,16 @@ SPDY es un protocolo de nivel de sesión complementario a HTTP que busca reducir
 SPDY consigue un aumento de seguridad al incorporar TLS como capa subyacente. Además, SPDY reduce las cabeceras para mejorar la velocidad de transmisión y reducir el envío de datos. 
 
 # Problemas de HTTP
+Con el surgimiento de las aplicaciones web y el cambio de comportamiento
+de los usuarios en Internet, que ahora pasan cada vez más tiempo conectados,
+salen a relucir algunos problemas que presenta HTTP para manejar los 
+intercambios de información:
+
+* Utilizar HTTP implica abrir un gran número de conexiones TCP entre
+  cliente y servidor para obtener los objetos y recursos de una web.
+  La persistencia que aporta HTTP1.1 no es suficiente, ya que 
+  generalmente un *timeout* en el servidor cierra la conexión
+
 
 # SPDY
 
