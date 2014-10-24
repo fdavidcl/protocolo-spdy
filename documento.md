@@ -37,6 +37,35 @@ Además, las cabeceras generalemente son
 redundantes, ya que parte de ellas se puede haber mandado en 
 solicitudes anteriores y no cambian a lo largo de toda la sesión.
 
+A continuación se muestra la cabecera HTTP que envía el servidor de
+la Universidad de Granada al realizar una petición GET de la página 
+principal: 
+
+~~~sh
+curl --head http://www.ugr.es
+~~~
+
+~~~
+HTTP/1.1 200 OK
+Date: Fri, 24 Oct 2014 10:36:36 GMT
+Server: Apache/2.2.22 (Debian)
+X-UniWeb-Server-Name: uniweb10
+Vary: Host,X-Forwarded-Host,Accept-Encoding
+X-Powered-By: PHP/5.4.4-14+deb7u14
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: must-revalidate, post-check=0, pre-check=0
+Pragma: private
+ETag: "ca40cd00b5bf682ebc5723adddb32f43"
+X-UniWeb-CMS-Server: uniweb10 on steroids
+Content-Length: 38262
+content-language: es
+Content-Type: text/html; charset=utf-8
+~~~
+
+Podemos observar que muchos de estos datos solo es necesario 
+recibirlos una vez, y sin embargo se enviarán en cada cabecera
+para cada respuesta del servidor.
+
 ## Seguridad
 El uso común de HTTP es sin cifrar, lo que conlleva algunas desventajas 
 en cuanto a privacidad de los usuarios, y a seguridad en cuanto a 
@@ -51,23 +80,6 @@ Server Push es una técnica que permite al servidor enviar múltiples respuestas
 Si bien esto reduce el tiempo de obtención de recursos, también crea un posible conflicto en el caso en el que el servidor envía recursos mientras el cliente está en proceso de solicitarlos. Se puede resolver con:  
 
 # Test bloque de código
-
-~~~sh
-curl --head http://www.google.es
-~~~
-
-~~~
-HTTP/1.1 200 OK
-Date: Mon, 20 Oct 2014 18:34:03 GMT
-Expires: -1
-Cache-Control: private, max-age=0
-Content-Type: text/html; charset=ISO-8859-1
-Server: gws
-X-XSS-Protection: 1; mode=block
-X-Frame-Options: SAMEORIGIN
-Alternate-Protocol: 80:quic,p=0.01
-Transfer-Encoding: chunked
-~~~
 
 <!-- Compilar con
   pandoc --to latex --latex-engine pdflatex -o documento.pdf documento.md --toc -N --template template.tex
