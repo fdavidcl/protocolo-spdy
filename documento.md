@@ -28,7 +28,13 @@ intercambios de información:
 
 Server Push es una técnica que permite al servidor enviar múltiples respuestas a una única petición del cliente. Esto se basa en que a veces, el servidor sabe que tiene que mandar múltiples recursos como respuesta a una petición del cliente. Sin *server push*, el cliente debe primero obtener el recurso principal, y al ver que necesita recursos secundarios, solicitarlos con nuevas peticiones. Todas estas peticiones innecesarias se evitan permitiendo al servidor enviar los recursos secundarios relacionados con el principal, sin esperar a que el cliente los pida. 
 
-Si bien esto reduce el tiempo de obtención de recursos, también crea un posible conflicto en el caso en el que el servidor envía recursos mientras el cliente está en proceso de solicitarlos. Se puede resolver con:  
+Si bien esto reduce el tiempo de obtención de recursos, también crea un posible conflicto en el caso en el que el servidor envía recursos mientras el cliente está en proceso de solicitarlos. Este problema se intenta resolver de la siguiente forma: 
+
+* El navegador que recibe un push debe comprobar que viene de un origen válido (usualmente el mismo que genero la respuesta inicial). 
+
+* Si el push es aceptado, el navegador debe guardar en caché las respuestas de la misma forma que lo haría con cualquier otra respuesta. 
+
+* Al no tener una petición, las respuestas mediante *server push* no tienen una cabecera de petición asociada. Se indicará el identificador de flujo asociado, que nos dirá el flujo de petición inicial con el que se asocia el push. Éste hereda todas las cabeceras del flujo asociado, salvo ":host", ":scheme", y ":path". 
 
 # Test bloque de código
 
