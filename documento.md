@@ -71,7 +71,22 @@ El uso común de HTTP es sin cifrar, lo que conlleva algunas desventajas
 en cuanto a privacidad de los usuarios, y a seguridad en cuanto a 
 autenticación de los puntos finales. 
 
+<!--
+# Otras alternativas
+A lo largo del tiempo se han propuesto otros protocolos (generalmente
+para la capa de transporte) que resolverían algunos de los problemas de
+HTTP:
+
+* SCTP (*Stream Control Transfer Protocol*) se propuso como un protocolo 
+  a nivel de transporte para sustituir a TCP 
+-->
 # SPDY
+
+## Sesiones
+Una sesión de SPDY se basa en una conexión TCP. Esta conexión será persistente,
+de forma que se enviarán solicitudes y respuestas sin cerrarla. En general, la
+sesión no se cierra hasta que el usuario del cliente cierra todas las páginas 
+web asociadas a la sesión, o bien el servidor envía el marco `GOAWAY`.
 
 ## Server Push 
 
@@ -86,7 +101,6 @@ Si bien esto reduce el tiempo de obtención de recursos, también crea un posibl
 * Al no tener una petición, las respuestas mediante *server push* no tienen una cabecera de petición asociada. Se indicará el identificador de flujo asociado, que nos dirá el flujo de petición inicial con el que se asocia el push. Éste hereda todas las cabeceras del flujo asociado, salvo ":host", ":scheme", y ":path". 
 
 
-# Test bloque de código
 
 <!-- Compilar con
   pandoc --to latex --latex-engine pdflatex -o documento.pdf documento.md --toc -N --template template.tex
