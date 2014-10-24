@@ -71,7 +71,22 @@ El uso común de HTTP es sin cifrar, lo que conlleva algunas desventajas
 en cuanto a privacidad de los usuarios, y a seguridad en cuanto a 
 autenticación de los puntos finales. 
 
+<!--
+# Otras alternativas
+A lo largo del tiempo se han propuesto otros protocolos (generalmente
+para la capa de transporte) que resolverían algunos de los problemas de
+HTTP:
+
+* SCTP (*Stream Control Transfer Protocol*) se propuso como un protocolo 
+  a nivel de transporte para sustituir a TCP 
+-->
 # SPDY
+
+## Sesiones
+Una sesión de SPDY se basa en una conexión TCP. Esta conexión será persistente,
+de forma que se enviarán solicitudes y respuestas sin cerrarla. En general, la
+sesión no se cierra hasta que el usuario del cliente cierra todas las páginas 
+web asociadas a la sesión, o bien el servidor envía el marco `GOAWAY`.
 
 ## Server Push 
 
@@ -93,7 +108,6 @@ Server Hint es un mecanismo mediante el cual el servidor puede notificar al clie
 
 SPDY trabaja sobre TLS. 
 
-# Test bloque de código
 
 <!-- Compilar con
   pandoc --to latex --latex-engine pdflatex -o documento.pdf documento.md --toc -N --template template.tex

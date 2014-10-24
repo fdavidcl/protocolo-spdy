@@ -4,7 +4,9 @@ author: José Carlos Entrena, Francisco David Charte
 date: Fundamentos de redes
 ---
 
-# Introducción
+# Introducción{.titleslide}
+
+# Motivación
 
 SPDY es un protocolo de nivel de sesión complementario a HTTP que busca reducir el tiempo de carga de páginas web. 
  
