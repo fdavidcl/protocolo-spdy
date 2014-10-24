@@ -6,6 +6,16 @@ date: Fundamentos de redes
 
 # Introducción
 
+SPDY es un protocolo de nivel de sesión complementario a HTTP que busca reducir el tiempo de carga de páginas web. 
+ 
+* Maximiza el rendimiento de HTTP reduciendo las conexiones TLS.
+
+* Permite manejar distintas peticiones HTTP de forma concurrente.
+
+* Aumento de seguridad al incorporar TLS como capa subyacente. 
+
+* Reducción de las cabeceras para mejorar la velocidad de transmisión.
+
 # Problemas de HTTP
 
 # SPDY
