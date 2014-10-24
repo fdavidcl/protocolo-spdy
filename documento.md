@@ -89,6 +89,9 @@ Si bien esto reduce el tiempo de obtención de recursos, también crea un posibl
 
 Server Hint es un mecanismo mediante el cual el servidor puede notificar al cliente que existen recursos disponibles antes de que el cliente los descubra. El servidor envía información sobre el recurso, y el cliente puede obtenerlo si lo necesita enviando una petición. 
 
+# Seguridad 
+
+SPDY trabaja sobre TLS. 
 
 # Test bloque de código
 
