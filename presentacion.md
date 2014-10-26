@@ -51,7 +51,7 @@ Transfer-Encoding: chunked
 
 * Servidor y cliente necesitan ponerse de acuerdo. 
 
-* Pueden hacerlo mediante NPN (cifrado) y ALPN (sin cifrar
+* Pueden hacerlo mediante NPN (cifrado) y ALPN (sin cifrar). 
 
 * Esto puede hacerse aunque no se use SPDY. 
 
