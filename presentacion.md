@@ -6,17 +6,15 @@ date: Fundamentos de redes
 
 # Introducción{.titleslide}
 
-# Motivación
+# Objetivos
 
-SPDY es un protocolo de nivel de sesión complementario a HTTP que busca reducir el tiempo de carga de páginas web. 
- 
-* Maximiza el rendimiento de HTTP reduciendo las conexiones TLS.
+* Maximizar el rendimiento de HTTP reduciendo las conexiones TCP.
 
-* Permite manejar distintas peticiones HTTP de forma concurrente.
+* Permitir manejar distintas peticiones HTTP de forma concurrente.
 
-* Aumento de seguridad al incorporar TLS como capa subyacente. 
+* Aumentar la seguridad incorporando TLS como capa subyacente. 
 
-* Reducción de las cabeceras para mejorar la velocidad de transmisión.
+* Reducir las cabeceras para mejorar la velocidad de transmisión.
 
 # Problemas de HTTP
 
@@ -28,21 +26,9 @@ SPDY es un protocolo de nivel de sesión complementario a HTTP que busca reducir
 
 * Datos sin cifrar, pobre autenticación.
 
-# SPDY{.titleslide}
+# Cabeceras HTTP
 
-# Server Push
-
-Permite al servidor mandar múltiples respuestas a una única peticion del cliente. 
-
-* Reduce el tiempo de obtención de recursos. 
-
-* Libera de carga al cliente. 
-
-* Server Hint nos informa de recursos sin enviarlos completamente. 
-
-# Test bloque de código
-
-~~~sh
+~~~bash
 curl --head http://www.google.es
 ~~~
 
@@ -59,6 +45,18 @@ Alternate-Protocol: 80:quic,p=0.01
 Transfer-Encoding: chunked
 ~~~
 
+# SPDY{.titleslide}
+
+# Server Push
+
+Permite al servidor mandar múltiples respuestas a una única peticion del cliente. 
+
+* Reduce el tiempo de obtención de recursos. 
+
+* Libera de carga al cliente. 
+
+* Server Hint nos informa de recursos sin enviarlos completamente. 
+
 <!-- Compilar con
   pandoc -t revealjs -o presentacion.html presentacion.md --self-contained
 
@@ -66,3 +64,33 @@ Transfer-Encoding: chunked
 
   pandoc -t dzslides -o presentacion.html presentacion.md --self-contained
 -->
+
+<!-- Estilo -->
+
+<link href='http://fonts.googleapis.com/css?family=Lato:400,300,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<style>
+* {
+  
+}
+body {
+  background: #333;
+  color: white;
+}
+section {
+  font-family: Lato, 'Lato', Open Sans, Ubuntu, sans-serif;
+}
+h1 {
+  font-weight: 300;
+  font-size: 2.4em;
+}
+section.slide:not(.titleslide) h1 {
+  font-size: 2.1em;
+}
+h1, b, strong {
+  color: #66bbee;
+}
+section.titleslide {
+  background: #000;
+  color: white;
+}
+</style>
