@@ -24,7 +24,9 @@ generalmente un *timeout* en el servidor cierra la conexión.
 
 ## Solicitudes
 HTTP está diseñado para que el cliente haga siempre las peticiones
-necesarias. Sin embargo, en las aplicaciones web son muchas las 
+necesarias. Sin embargo, obtener un recurso suele implicar solicitar
+algunos recursos secundarios, para los que son necesarias nuevas
+peticiones. Además, en las aplicaciones web son muchas las 
 ocasiones en las que no se conoce el momento en que se obtendrán
 nuevos datos desde el servidor, lo que conlleva que el cliente esté
 consultando repetidamente al servidor acerca de los nuevos datos.
@@ -41,7 +43,7 @@ A continuación se muestra la cabecera HTTP que envía el servidor de
 la Universidad de Granada al realizar una petición GET de la página 
 principal: 
 
-~~~sh
+~~~bash
 curl --head http://www.ugr.es
 ~~~
 
@@ -87,6 +89,61 @@ Una sesión de SPDY se basa en una conexión TCP. Esta conexión será persisten
 de forma que se enviarán solicitudes y respuestas sin cerrarla. En general, la
 sesión no se cierra hasta que el usuario del cliente cierra todas las páginas 
 web asociadas a la sesión, o bien el servidor envía el marco `GOAWAY`.
+
+Utilizando la herramienta `spdycat` del proyecto Spdylay[^spdylay] podemos
+visualizar el intercambio de marcos en una sesión SPDY con servidores que
+acepten este protocolo (por ejemplo, Google, Twitter, Tumblr). A continuación
+se muestra el inicio de una sesión mediante la transmisión de marcos `SYN_STREAM`
+y `SYN_REPLY` con Tumblr:
+
+~~~bash
+spdycat -nv https://www.tumblr.com
+~~~
+~~~
+[  0.354] NPN select next protocol: the remote server offers:
+          * spdy/3.1
+          * http/1.1
+          NPN selected the protocol: spdy/3.1
+[  0.504] Handshake complete
+[  0.504] send SYN_STREAM frame <version=3, flags=1, length=217>
+          (stream_id=1, assoc_stream_id=0, pri=3)
+          :host: www.tumblr.com
+          :method: GET
+          :path: /
+          :scheme: https
+          :version: HTTP/1.1
+          accept: */*
+          accept-encoding: gzip, deflate
+          user-agent: spdylay/1.3.1
+[  0.639] recv SETTINGS frame <version=3, flags=1, length=20>
+          (niv=2)
+          [4(0):100]
+          [7(0):2147483647]
+[  0.639] recv WINDOW_UPDATE frame <version=3, flags=0, length=8>
+          (stream_id=0, delta_window_size=2147418111)
+[  1.017] recv SYN_REPLY frame <version=3, flags=0, length=451>
+          (stream_id=1)
+          :status: 200 OK
+          :version: HTTP/1.1
+          content-type: text/html; charset=utf-8
+          date: Sun, 26 Oct 2014 12:08:23 GMT
+          p3p: CP="ALL ADM DEV PSAi COM OUR OTRo STP IND ONL"
+          server: nginx
+          path=/; httponly
+          strict-transport-security: max-age=2592000
+          vary: Accept-Encoding
+          x-ua-compatible: IE=Edge,chrome=1
+~~~
+
+Podemos observar que los marcos que se envían y reciben al comienzo de
+una sesión son similares a las cabeceras HTTP que se intercambian para
+cada solicitud. Sin embargo, en las sucesivas peticiones HTTP, no se
+aportarán todos los datos que sí se explicitan al inicio.
+
+Después de este intercambio, el cliente recibe marcos de tipo `DATA_FRAME`,
+que contienen los datos correspondientes a la página web solicitada.
+
+[^spdylay]: SPDY C Library - [http://tatsuhiro-t.github.io/spdylay/](http://tatsuhiro-t.github.io/spdylay/)
 
 ## Server Push 
 
