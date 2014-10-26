@@ -32,7 +32,13 @@ SPDY es un protocolo de nivel de sesión complementario a HTTP que busca reducir
 
 # Server Push
 
-Bla bla
+Permite al servidor mandar múltiples respuestas a una única peticion del cliente. 
+
+* Reduce el tiempo de obtención de recursos. 
+
+* Libera de carga al cliente. 
+
+* Server Hint nos informa de recursos sin enviarlos completamente. 
 
 # Test bloque de código
 

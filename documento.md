@@ -151,12 +151,19 @@ Server Push es una técnica que permite al servidor enviar múltiples respuestas
 
 Si bien esto reduce el tiempo de obtención de recursos, también crea un posible conflicto en el caso en el que el servidor envía recursos mientras el cliente está en proceso de solicitarlos. Este problema se intenta resolver de la siguiente forma: 
 
-* El navegador que recibe un push debe comprobar que viene de un origen válido (usualmente el mismo que genero la respuesta inicial). 
+* El navegador que recibe un push debe comprobar que viene de un origen válido (usualmente el mismo que generó la respuesta inicial). 
 
 * Si el push es aceptado, el navegador debe guardar en caché las respuestas de la misma forma que lo haría con cualquier otra respuesta. 
 
-* Al no tener una petición, las respuestas mediante *server push* no tienen una cabecera de petición asociada. Se indicará el identificador de flujo asociado, que nos dirá el flujo de petición inicial con el que se asocia el push. Éste hereda todas las cabeceras del flujo asociado, salvo ":host", ":scheme", y ":path". 
+* Al no tener una petición, las respuestas mediante *server push* no tienen una cabecera de petición asociada. Se indicará el identificador de flujo asociado, que nos dirá el flujo de petición inicial con el que se asocia el push. Este hereda todas las cabeceras del flujo asociado, salvo "*:host*", "*:scheme*", y "*:path*". 
 
+### Server Hint
+
+Server Hint es un mecanismo mediante el cual el servidor puede notificar al cliente que existen recursos disponibles antes de que el cliente los descubra. El servidor envía información sobre el recurso, y el cliente puede obtenerlo si lo necesita enviando una petición. 
+
+# Seguridad 
+
+SPDY trabaja sobre TLS. 
 
 
 <!-- Compilar con
