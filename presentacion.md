@@ -57,6 +57,12 @@ Transfer-Encoding: chunked
 
 # Sesiones
 
+* El tipo de conexión es persistente. 
+
+* La sesión es cerrada por el cliente o por un GOAWAY del servidor. 
+
+* No se repiten los datos que se envían al comienzo de la sesión. 
+
 # Server Push
 
 Permite al servidor mandar múltiples respuestas a una única peticion del cliente. 
