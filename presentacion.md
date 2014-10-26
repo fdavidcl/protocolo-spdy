@@ -51,7 +51,7 @@ Transfer-Encoding: chunked
 
 * NPN/ALPN permiten escoger protocolo y versión.
 
-* En NPN la selección se envía cifrada.
+* En NPN la selección se envía cifrada, en ALPN sin cifrar.
 
 ~~~bash
 spdycat -nv https://duckduckgo.com
@@ -66,9 +66,9 @@ spdycat -nv https://duckduckgo.com
 
 * Compatible con servidores / clientes que no soporten SPDY.
 
-# Sesión
+# Sesiones
 
-* Utiliza una conexión TCP
+* Utiliza una conexión TCP persistente. 
 
 * Envío y recepción de marcos
     
@@ -76,7 +76,9 @@ spdycat -nv https://duckduckgo.com
     
     * `DATA_FRAME`
     
-<!-- Más contenido aquí! -->
+    * `GOAWAY` (cierra conexión) 
+
+* No se repiten los datos que se envían al comienzo de la sesión. 
 
 # Server Push
 
