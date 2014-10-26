@@ -47,6 +47,10 @@ Transfer-Encoding: chunked
 
 # SPDY{.titleslide}
 
+# Negociación de protocolo
+
+# Sesiones
+
 # Server Push
 
 Permite al servidor mandar múltiples respuestas a una única peticion del cliente. 
@@ -56,6 +60,12 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
 * Libera de carga al cliente. 
 
 * Server Hint nos informa de recursos sin enviarlos completamente. 
+
+# Seguridad
+
+# HTTP/2
+
+# Demo time!{.titleslide}
 
 <!-- Compilar con
   pandoc -t revealjs -o presentacion.html presentacion.md --self-contained
@@ -73,7 +83,7 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
   
 }
 body {
-  background: #333;
+  background: #303030;
   color: white;
 }
 section {
