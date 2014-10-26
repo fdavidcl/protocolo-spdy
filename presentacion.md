@@ -49,6 +49,12 @@ Transfer-Encoding: chunked
 
 # Negociación de protocolo
 
+* Servidor y cliente necesitan ponerse de acuerdo. 
+
+* Pueden hacerlo mediante NPN (cifrado) y ALPN (sin cifrar
+
+* Esto puede hacerse aunque no se use SPDY. 
+
 # Sesiones
 
 # Server Push
