@@ -79,28 +79,41 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
 
 <link href='http://fonts.googleapis.com/css?family=Lato:400,300,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <style>
-* {
-  
-}
-body {
-  background: #303030;
-  color: white;
-}
-section {
-  font-family: Lato, 'Lato', Open Sans, Ubuntu, sans-serif;
-}
-h1 {
-  font-weight: 300;
-  font-size: 2.4em;
-}
-section.slide:not(.titleslide) h1 {
-  font-size: 2.1em;
-}
-h1, b, strong {
-  color: #66bbee;
-}
-section.titleslide {
-  background: #000;
-  color: white;
-}
+  * {
+    
+  }
+  body {
+    background: #303030;
+    color: white;
+  }
+  section {
+    font-family: Lato, 'Lato', Open Sans, Ubuntu, sans-serif;
+  }
+  h1 {
+    font-weight: 300;
+    font-size: 2.4em;
+  }
+  section.slide:not(.titleslide) h1 {
+    font-size: 2.1em;
+  }
+  h1, b, strong {
+    color: #66bbee;
+  }
+  section.titleslide {
+    background: #000;
+    color: white;
+  }
+
+  section {
+      -moz-transition: left 400ms ease-in-out 0s, opacity 300ms ease-in-out;
+      -webkit-transition: left 400ms ease-in-out 0s, opacity 300ms ease-in-out;
+      -ms-transition: left 400ms ease-in-out 0s, opacity 300ms ease-in-out;
+      transition: left 400ms ease-in-out 0s, opacity 300ms ease-in-out;
+  }
+  /* Before */
+  section { left: -150%; opacity: 0; }
+  /* Now */
+  section[aria-selected] { left: 0; opacity: 1; }
+  /* After */
+  section[aria-selected] ~ section { left: +150%; opacity: 0; }
 </style>

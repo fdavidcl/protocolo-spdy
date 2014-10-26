@@ -84,17 +84,28 @@ HTTP:
 -->
 # SPDY
 
-## Sesiones
-Una sesión de SPDY se basa en una conexión TCP. Esta conexión será persistente,
-de forma que se enviarán solicitudes y respuestas sin cerrarla. En general, la
-sesión no se cierra hasta que el usuario del cliente cierra todas las páginas 
-web asociadas a la sesión, o bien el servidor envía el marco `GOAWAY`.
+## Negociación de protocolo y compatibilidad
+Para que un cliente y un servidor se comuniquen utilizando el protocolo SPDY,
+es preciso que primero acuerden usarlo y escoger una versión concreta. Con
+este propósito se utiliza NPN (*Next Protocol Negotiation*)[^npn], o 
+bien el más moderno ALPN (*Application-Layer Protocol Negotiation*)[^alpn], ambos
+extensiones del protocolo de seguridad TLS.
 
-Utilizando la herramienta `spdycat` del proyecto Spdylay[^spdylay] podemos
-visualizar el intercambio de marcos en una sesión SPDY con servidores que
-acepten este protocolo (por ejemplo, Google, Twitter, Tumblr). A continuación
-se muestra el inicio de una sesión mediante la transmisión de marcos `SYN_STREAM`
-y `SYN_REPLY` con Tumblr:
+[^npn]: TLS Next Protocol Negotiation - [https://technotes.googlecode.com/git/nextprotoneg.html](https://technotes.googlecode.com/git/nextprotoneg.html)
+[^alpn]: TLS Application-Layer Protocol Negotiation - [http://tools.ietf.org/html/rfc7301#section-3](http://tools.ietf.org/html/rfc7301#section-3)
+
+En NPN, el cliente envía el mensaje ClientHello indicando que soporta NPN, y el
+servidor responde con una lista de protocolos soportados. El cliente entonces
+selecciona el protocolo preferido y da por terminado el *handshake*, comenzando
+la transmisión de datos. Mediante ALPN, la selección de protocolo se puede 
+realizar en un paso menos, ya que es el cliente el que envía su lista de 
+protocolos y el servidor elige el más adecuado y lo indica en el ServerHello,
+ahorrando un mensaje al cliente. La diferencia es que en NPN el protocolo que
+indica el cliente se envía ya cifrado, mientras que en ALPN, al enviarse desde
+el servidor antes de realizar el intercambio de claves, se transmite sin cifrar.
+
+Utilizando la herramienta `spdycat` del proyecto Spdylay[^spdylay] vemos la
+selección de protocolo al comunicarnos con un servidor que soporta SPDY:
 
 ~~~bash
 spdycat -nv https://www.tumblr.com
@@ -105,6 +116,33 @@ spdycat -nv https://www.tumblr.com
           * http/1.1
           NPN selected the protocol: spdy/3.1
 [  0.504] Handshake complete
+~~~
+
+También es posible usar NPN/ALPN sin necesidad de ofrecer SPDY, para distinguir
+entre distintas versiones de HTTP y otros protocolos (aunque `spdycat` solo permite
+seleccionar versiones de SPDY):
+
+~~~bash
+spdycat -nv https://flickr.com
+~~~
+~~~
+[  0.377] NPN select next protocol: the remote server offers:
+          * http/1.1
+          * http/1.0
+Server did not advertise SPDY protocol.
+~~~
+
+## Sesiones
+Una sesión de SPDY se basa en una conexión TCP. Esta conexión será persistente,
+de forma que se enviarán solicitudes y respuestas sin cerrarla. En general, la
+sesión no se cierra hasta que el usuario del cliente cierra todas las páginas 
+web asociadas a la sesión, o bien el servidor envía el marco `GOAWAY`.
+
+De nuevo utilizando `spdycat`, visualizamos el intercambio de marcos en una sesión
+SPDY con servidores que acepten este protocolo. A continuación se muestra el inicio 
+de una sesión mediante la transmisión de marcos `SYN_STREAM` y `SYN_REPLY` con Tumblr:
+
+~~~
 [  0.504] send SYN_STREAM frame <version=3, flags=1, length=217>
           (stream_id=1, assoc_stream_id=0, pri=3)
           :host: www.tumblr.com
