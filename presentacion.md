@@ -49,7 +49,34 @@ Transfer-Encoding: chunked
 
 # Negociación de protocolo
 
-# Sesiones
+* NPN/ALPN permiten escoger protocolo y versión.
+
+* En NPN la selección se envía cifrada.
+
+~~~bash
+spdycat -nv https://duckduckgo.com
+~~~
+~~~
+[  0.316] NPN select next protocol: remote server offers:
+          * spdy/3.1
+          * http/1.1
+          NPN selected the protocol: spdy/3.1
+[  0.388] Handshake complete
+~~~
+
+* Compatible con servidores / clientes que no soporten SPDY.
+
+# Sesión
+
+* Utiliza una conexión TCP
+
+* Envío y recepción de marcos
+    
+    * `SYN_STREAM`, `SYN_REPLY`
+    
+    * `DATA_FRAME`
+    
+<!-- Más contenido aquí! -->
 
 # Server Push
 
@@ -77,7 +104,7 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
 
 <!-- Estilo -->
 
-<link href='http://fonts.googleapis.com/css?family=Lato:400,300,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<!--link href='http://fonts.googleapis.com/css?family=Lato:400,300,700,400italic,700italic' rel='stylesheet' type='text/css'-->
 <style>
   * {
     
@@ -102,6 +129,9 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
   section.titleslide {
     background: #000;
     color: white;
+  }
+  pre {
+    font-size: 0.8em;
   }
 
   section {

@@ -84,6 +84,22 @@ HTTP:
 -->
 # SPDY
 
+El protocolo SPDY se sitúa por debajo de HTTP en la capa de aplicación de
+TCP/IP, o en lo que correspondería a la capa de sesión en el modelo OSI.
+Además, se integra con TLS (*Transport Layer Security*), de modo que siempre
+se utiliza conjuntamente con este otro protocolo.
+
+<!-- Más contenido aquí! -->
+
+|**HTTP**|**SPDY**|
+|:------:|:------:|
+|      | HTTP |
+| HTTP | SPDY |
+|      | TLS  |
+|------|------|
+| TCP  | TCP  |
+| IP   | IP   |
+
 ## Negociación de protocolo y compatibilidad
 Para que un cliente y un servidor se comuniquen utilizando el protocolo SPDY,
 es preciso que primero acuerden usarlo y escoger una versión concreta. Con
@@ -108,14 +124,14 @@ Utilizando la herramienta `spdycat` del proyecto Spdylay[^spdylay] vemos la
 selección de protocolo al comunicarnos con un servidor que soporta SPDY:
 
 ~~~bash
-spdycat -nv https://www.tumblr.com
+spdycat -nv https://duckduckgo.com
 ~~~
 ~~~
-[  0.354] NPN select next protocol: the remote server offers:
+[  0.316] NPN select next protocol: the remote server offers:
           * spdy/3.1
           * http/1.1
           NPN selected the protocol: spdy/3.1
-[  0.504] Handshake complete
+[  0.388] Handshake complete
 ~~~
 
 También es posible usar NPN/ALPN sin necesidad de ofrecer SPDY, para distinguir
@@ -131,6 +147,13 @@ spdycat -nv https://flickr.com
           * http/1.0
 Server did not advertise SPDY protocol.
 ~~~
+
+La selección de protocolo, introducida mediante extensión de TLS,
+nos permite por tanto mantener la compatibilidad con servidores y
+clientes que no soporten SPDY, es decir, un servidor no seleccionará
+SPDY para clientes que no lo puedan utilizar, y viceversa. De
+esta manera se evita tener que enviar cabeceras o mensajes que
+algunos servidores y clientes puedan no entender.
 
 ## Sesiones
 Una sesión de SPDY se basa en una conexión TCP. Esta conexión será persistente,
@@ -203,6 +226,8 @@ Server Hint es un mecanismo mediante el cual el servidor puede notificar al clie
 
 SPDY trabaja sobre TLS. 
 
+## HTTP/2
+
 # Demostración práctica
 
 Para realizar una demostración de lo que sería el uso habitual de SPDY
@@ -242,8 +267,8 @@ systemctl start nginx
 Ahora, si abrimos un navegador compatible con SPDY (cualquier
 navegador moderno ya lo soporta) y accedemos a `https://spdyserver.lo`,
 suponiendo que nuestro archivo *hosts* apunta a la IP adecuada,
-nos avisará de que el certificado no es válido, y finalmente
-podremos ver la página de bienvenida de NGINX. En navegadores
+nos avisará de que no es capaz de verificar la confianza del certificado,
+y finalmente podremos ver la página de bienvenida de NGINX. En navegadores
 basados en Chromium podemos cerciorarnos que estamos accediendo
 mediante SPDY visitando `chrome://net-internals/#spdy`:
 
