@@ -199,10 +199,55 @@ Si bien esto reduce el tiempo de obtención de recursos, también crea un posibl
 
 Server Hint es un mecanismo mediante el cual el servidor puede notificar al cliente que existen recursos disponibles antes de que el cliente los descubra. El servidor envía información sobre el recurso, y el cliente puede obtenerlo si lo necesita enviando una petición. 
 
-# Seguridad 
+## Seguridad 
 
 SPDY trabaja sobre TLS. 
 
+# Demostración práctica
+
+Para realizar una demostración de lo que sería el uso habitual de SPDY
+en un sitio web, vamos a utilizar el servidor NGINX, que dispone del módulo
+*ngx_http_spdy_module*[^ngxspdy] que le permite trabajar sobre SPDY.
+
+[^ngxspdy]: Module ngx_http_spdy_module - [http://nginx.org/en/docs/http/ngx_http_spdy_module.html](http://nginx.org/en/docs/http/ngx_http_spdy_module.html)
+
+Necesitaremos modificar el archivo `/etc/nginx/conf.d/default.conf` para que
+el servidor escuche el puerto 443 con SPDY:
+
+~~~R
+server {
+    listen   80;
+    listen   443 ssl spdy;
+    server_name  spdyserver.lo;
+
+    ssl_certificate /etc/nginx/ssl/nginx.crt;
+    ssl_certificate_key /etc/nginx/ssl/nginx.key;
+
+    # Resto de configuración
+}
+~~~
+
+Para que el servidor permita la conexión con TLS, generaremos una clave y un
+certificado SSL mediante `openssl`, abriremos los puertos 80 y 443 e iniciaremos
+el servicio asociado al servidor:
+
+~~~bash
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
+iptables -I INPUT -i eth0 -p tcp -m tcp --dport 80 -j ACCEPT
+iptables -I INPUT -i eth0 -p tcp -m tcp --dport 443 -j ACCEPT
+systemctl start nginx
+~~~
+
+Ahora, si abrimos un navegador compatible con SPDY (cualquier
+navegador moderno ya lo soporta) y accedemos a `https://spdyserver.lo`,
+suponiendo que nuestro archivo *hosts* apunta a la IP adecuada,
+nos avisará de que el certificado no es válido, y finalmente
+podremos ver la página de bienvenida de NGINX. En navegadores
+basados en Chromium podemos cerciorarnos que estamos accediendo
+mediante SPDY visitando `chrome://net-internals/#spdy`:
+
+![](chromespdy.png)
 
 <!-- Compilar con
   pandoc --to latex --latex-engine pdflatex -o documento.pdf documento.md --toc -N --template template.tex
