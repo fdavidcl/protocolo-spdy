@@ -6,23 +6,24 @@ date: Fundamentos de redes
 
 # Introducción
 
+## Objetivos de SPDY
 SPDY es un protocolo de nivel de sesión complementario a HTTP que busca reducir el tiempo de carga de páginas web. Esto se consigue maximizando el rendimiento de HTTP mediante una reducción del número de conexiones TCP necesarias, permitiendo manejar distintas peticiones HTTP de forma concurrente. 
 
 SPDY consigue un aumento de seguridad al incorporar TLS como capa subyacente. Además, SPDY reduce las cabeceras para mejorar la velocidad de transmisión y reducir el envío de datos. 
 
-# Problemas de HTTP
+## Problemas de HTTP
 Con el surgimiento de las aplicaciones web y el cambio de comportamiento
 de los usuarios en Internet, que ahora pasan cada vez más tiempo conectados,
 salen a relucir algunos problemas que presenta HTTP para manejar los 
 intercambios de información:
 
-## Conexiones
+### Conexiones
 Utilizar HTTP implica abrir un gran número de conexiones TCP entre
 cliente y servidor para obtener los objetos y recursos de una web.
 La persistencia que aporta HTTP1.1 no es suficiente, ya que 
 generalmente un *timeout* en el servidor cierra la conexión.
 
-## Solicitudes
+### Solicitudes
 HTTP está diseñado para que el cliente haga siempre las peticiones
 necesarias. Sin embargo, obtener un recurso suele implicar solicitar
 algunos recursos secundarios, para los que son necesarias nuevas
@@ -31,7 +32,7 @@ ocasiones en las que no se conoce el momento en que se obtendrán
 nuevos datos desde el servidor, lo que conlleva que el cliente esté
 consultando repetidamente al servidor acerca de los nuevos datos.
 
-## Cabeceras
+### Cabeceras
 Las cabeceras de HTTP se envían sin comprimir. Esto implica cierta
 latencia, acentuada por la baja velocidad de subida de las redes ADSL.
 
@@ -68,7 +69,7 @@ Podemos observar que muchos de estos datos solo es necesario
 recibirlos una vez, y sin embargo se enviarán en cada cabecera
 para cada respuesta del servidor.
 
-## Seguridad
+### Seguridad
 El uso común de HTTP es sin cifrar, lo que conlleva algunas desventajas 
 en cuanto a privacidad de los usuarios, y a seguridad en cuanto a 
 autenticación de los puntos finales. 
@@ -83,6 +84,13 @@ HTTP:
   a nivel de transporte para sustituir a TCP 
 -->
 # SPDY
+
+SPDY fue anunciado por desarrolladores del proyecto Chromium en 2009 como
+un protocolo que reduciría los tiempos de carga a la mitad. Desde entonces,
+se han desarrollado varias versiones (actualmente se utiliza la 3.1 en 
+general) y se comenzó a desarrollar como estándar en 2012. 
+A día de hoy ya es soportado en todos los navegadores modernos, aunque
+Internet Explorer y Safari solo lo soportan en su última versión. 
 
 El protocolo SPDY se sitúa por debajo de HTTP en la capa de aplicación de
 TCP/IP, o en lo que correspondería a la capa de sesión en el modelo OSI.
