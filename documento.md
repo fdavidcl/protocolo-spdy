@@ -224,7 +224,9 @@ Server Hint es un mecanismo mediante el cual el servidor puede notificar al clie
 
 ## Seguridad 
 
-SPDY trabaja sobre TLS. 
+### Ataque de protocolo cruzado.
+
+Mediante el uso de TLS, es de esperar que SPDY no introduzca ninguna posibilidad de nuevos ataques de protocolo cruzado. TLS encripta el contenido de toda la transmisión (exceptuándo el *handshake*), dificultando a posibles atacantes el control de los datos necesarios para dicho ataque. 
 
 ## HTTP/2
 
