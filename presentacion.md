@@ -98,13 +98,17 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
 
 # HTTP/2
 
+* Añade sesiones tipo SPDY.
+
+* Usa *server push* y *server hint*.
+
+* Se integra con TLS (>= 1.2).
+
+* En uso experimental en Google.
+
 # Demo time!{.titleslide}
 
 <!-- Compilar con
-  pandoc -t revealjs -o presentacion.html presentacion.md --self-contained
-
-  o bien
-
   pandoc -t dzslides -o presentacion.html presentacion.md --self-contained
 -->
 

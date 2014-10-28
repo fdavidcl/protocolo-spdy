@@ -238,9 +238,13 @@ Al estar integrado fuertemente con TLS, todas las características de seguridad 
 
 ### Ataques *cross-protocol*
 
-El uso de TLS nos asegura que SPDY no introduce ninguna posibilidad de ataques *cross protocol*, al ser imposibles de realizar sobre este protocolo de seguridad. 
+El uso de TLS nos asegura que SPDY no introduce ninguna posibilidad de ataques *cross-protocol*, al ser imposibles de realizar sobre este protocolo de seguridad. 
 
 ## HTTP/2
+
+La próxima versión de HTTP incluirá muchas de las funcionalidades de SPDY, como la 
+gestión de conexiones, la sintaxis de los marcos, las técnicas de *server push* y
+*server hint* y la integración con TLS (como mínimo TLS 1.2).
 
 # Demostración práctica
 
