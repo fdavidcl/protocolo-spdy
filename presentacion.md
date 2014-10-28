@@ -110,7 +110,7 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
 
 <!-- Estilo -->
 
-<!--link href='http://fonts.googleapis.com/css?family=Lato:400,300,700,400italic,700italic' rel='stylesheet' type='text/css'-->
+<link href='http://fonts.googleapis.com/css?family=Lato:400,300,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <style>
   * {
     
