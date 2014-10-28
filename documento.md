@@ -85,12 +85,14 @@ HTTP:
 -->
 # SPDY
 
-SPDY fue anunciado por desarrolladores del proyecto Chromium en 2009 como
+SPDY fue anunciado por desarrolladores del proyecto Chromium en 2009[^chromiumblog] como
 un protocolo que reduciría los tiempos de carga a la mitad. Desde entonces,
 se han desarrollado varias versiones (actualmente se utiliza la 3.1 en 
 general) y se comenzó a desarrollar como estándar en 2012. 
 A día de hoy ya es soportado en todos los navegadores modernos, aunque
 Internet Explorer y Safari solo lo soportan en su última versión. 
+
+[^chromiumblog]: A 2x Faster Web - [http://blog.chromium.org/2009/11/2x-faster-web.html](http://blog.chromium.org/2009/11/2x-faster-web.html)
 
 El protocolo SPDY se sitúa por debajo de HTTP en la capa de aplicación de
 TCP/IP, o en lo que correspondería a la capa de sesión en el modelo OSI.
