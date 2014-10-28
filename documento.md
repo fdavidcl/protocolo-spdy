@@ -240,11 +240,26 @@ Al estar integrado fuertemente con TLS, todas las características de seguridad 
 
 El uso de TLS nos asegura que SPDY no introduce ninguna posibilidad de ataques *cross-protocol*, al ser imposibles de realizar sobre este protocolo de seguridad. 
 
+### CRIME
+
+CRIME (*Compression Ratio Info-leak Made Easy*) es un ataque de seguridad propiciado por el
+uso de compresión de datos en conexiones seguras mediante TLS. Este ataque se ha evitado
+haciendo que los navegadores no utilicen compresión de datos y pidan a los servidores que
+no la usen. 
+
 ## HTTP/2
 
 La próxima versión de HTTP incluirá muchas de las funcionalidades de SPDY, como la 
-gestión de conexiones, la sintaxis de los marcos, las técnicas de *server push* y
-*server hint* y la integración con TLS (como mínimo TLS 1.2).
+gestión de conexiones, la negociación del protocolo mediante ALPN, la sintaxis de los 
+marcos, las técnicas de *server push* y *server hint* y la integración con TLS (como 
+mínimo TLS 1.2).
+
+Existirá una versión opcional de HTTP/2 sin cifrado, aunque algunas implementaciones no
+permitirán utilizarla y forzarán el uso del cifrado con TLS.
+
+Además, HTTP/2 sustituye la compresión de datos por GZIP utilizada en SPDY por una
+compresión diseñada para depender de las cabeceras, HPACK, que no es vulnerable al
+ataque CRIME.
 
 # Demostración práctica
 

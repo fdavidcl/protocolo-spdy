@@ -94,7 +94,9 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
 
 * Uso de TLS como capa de seguridad, encriptando la información. 
 
-* No se añaden posibles ataques *cross-protocol*. 
+* No se añaden posibles ataques *cross-protocol*.
+
+* CRIME se evita anulando la compresión de datos.
 
 # HTTP/2
 
@@ -102,7 +104,7 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
 
 * Usa *server push* y *server hint*.
 
-* Se integra con TLS (>= 1.2).
+* Se integra con TLS (>= 1.2), usando compresión HPACK.
 
 * En uso experimental en Google.
 
