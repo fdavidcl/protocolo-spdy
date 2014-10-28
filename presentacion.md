@@ -92,6 +92,10 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
 
 # Seguridad
 
+* Uso de TLS como capa de seguridad, encriptando la información. 
+
+* No se añaden posibles ataques *cross-protocol*. 
+
 # HTTP/2
 
 # Demo time!{.titleslide}
