@@ -232,9 +232,11 @@ Server Hint es un mecanismo mediante el cual el servidor puede notificar al clie
 
 ## Seguridad 
 
-### Ataque de protocolo cruzado.
+Al estar integrado fuertemente con TLS, todas las características de seguridad de SPDY son las que incorpora este protocolo. Toda la información se envía cifrada (salvo el *handshake* inicial), incluidas las cabeceras, lo que evita una interpretación directa de las mismas por parte de un posible atacante.  
 
-Mediante el uso de TLS, es de esperar que SPDY no introduzca ninguna posibilidad de nuevos ataques de protocolo cruzado. TLS encripta el contenido de toda la transmisión (exceptuándo el *handshake*), dificultando a posibles atacantes el control de los datos necesarios para dicho ataque. 
+### Ataques *cross-protocol*
+
+El uso de TLS nos asegura que SPDY no introduce ninguna posibilidad de ataques *cross protocol*, al ser imposibles de realizar sobre este protocolo de seguridad. 
 
 ## HTTP/2
 
