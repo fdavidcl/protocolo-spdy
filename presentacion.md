@@ -92,7 +92,7 @@ Permite al servidor mandar múltiples respuestas a una única peticion del clien
 
 # Seguridad
 
-* Uso de TLS como capa de seguridad, encriptando la información. 
+* Uso de TLS como capa de seguridad, para cifrado de la información. 
 
 * No se añaden posibles ataques *cross-protocol*.
 
